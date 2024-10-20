@@ -1,0 +1,88 @@
+create database SalesDatawarehouse;
+
+use SalesDatawarehouse databases;
+
+CREATE TABLE sales(
+sales_id INT PRIMARY KEY,
+product_id INT,
+time_id INT,
+store_INT,
+amount_sold DECIMAL(10, 2)
+);
+
+CREATE TABLE product (
+product_id INT PRIMARY KEY,
+product_name VARCHAR(225),
+category VARCHAR(225) 
+);
+
+CREATE TABLE time ( 
+time_id INT PRIMARY KEY,
+day INT,
+month INT,
+year INT
+);
+
+CREATE TABLE stores (
+store_id INT PRIMARY KEY,
+store_name VARCHAR(225),
+region VARCHAR(225)
+);
+
+show tables;
+
+INSERT INTO products (product_id, product_name, category) VALUES
+(1, 'Laptop' , 'Electronics'),
+(2, 'Tablet' , 'Electronics'),
+(3, 'Chair' , 'Furniture');
+
+INSERT INTO stores table(store_id, store_name, region) VALUES
+(1, 'Store A' , 'North'),
+(2, 'Store B' , 'South'),
+(3, 'Store C' , 'EAST');
+
+INSERT INTO time(time_id, day, month, year) VALUES
+(1, 1, 1, 2023),
+(2, 2, 1, 2023),
+(3, 3, 1, 2023);
+
+INSERT INTO sales (sales_id, product_id, time_id, store_id, amount_sold) VALUES 
+(1, 1, 1, 1, 100.00),
+(2, 2 ,2, 2, 100.00),
+(3, 3, 3, 3, 100.00);
+
+SELECT time year, time.month, SUM(sales . amount_sold) AS total_sales
+FROM sales
+JOIN time ON sales.time_id = time.time_id
+GROUP BY time.year, time.month;
+
+select * from product;
+
+select * from time;
+
+select * from stores
+
+
+
+-- basic OLAP operation
+
+-- Drill down: In drill-down operation, the less detailed data is converted into highly detailed data. It can be done by:
+-- Moving down in the concept hierarchy
+-- Adding a new dimension
+-- In the cube given in overview section, the drill down operation is performed by moving down in the concept hierarchy of Time dimension (Quarter -> Month).
+
+
+-- Roll up: It is just opposite of the drill-down operation. It performs aggregation on the OLAP cube. It can be done by:
+-- Climbing up in the concept hierarchy
+-- Reducing the dimensions
+-- In the cube given in the overview section, the roll-up operation is performed by climbing up in the concept hierarchy of Location dimension (City -> Country).
+
+
+-- Dice: It selects a sub-cube from the OLAP cube by selecting two or more dimensions. In the cube given in the overview section, a sub-cube is selected by selecting following dimensions with criteria:
+-- Location = “Delhi” or “Kolkata”
+-- Time = “Q1” or “Q2”
+-- Item = “Car” or “Bus”
+
+
+-- Slice: It selects a single dimension from the OLAP cube which results in a new sub-cube creation. In the cube given in the overview section, Slice is performed on the dimension Time = “Q1”.
+
