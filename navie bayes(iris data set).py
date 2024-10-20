@@ -67,5 +67,22 @@ for i, pred in enumerate(y_pred):
     print(f"Sample {i+1}: Predicted Class = {pred}, Actual Class = {y_test[i]}")
 
 """
+# Aim : Implementation of Naive Bayes algorithm 
+# Theory : 
+# • Naive Bayes is a machine learning algorithm for classification problems. It is based on Bayes’ probability 
+# theorem. It is primarily used for text classification which involves high dimensional training data sets. 
+# • The Naive Bayes algorithm is called “naive” because it makes the assumption that the occurrence of a certain 
+# feature is independent of the occurrence of other features. 
+# Implementation of Naive Bayes Algorithms : 
+# We are using the Social network ad dataset. The dataset contains the details of users in a social networking 
+# site to find whether a user buys a product by clicking the ad on the site based on their salary, age, and gender. 
+# Steps involved for implementation : 
+# 1. Importing essential libraries required. 
+# 2. Importing of social network ad dataset. 
+# 3. Since our dataset containing character variables we have to encode it using LabelEncoder. 4. performing a train test split on our dataset. 
+# 5. Next, we are doing feature scaling to the training and test set of independent variables. 6. Training the Naive Bayes model on the training set. 
+# 7. Let’s predict the test results. 
+# 8. Making the Confusion Matrix 
 
+#Conclusion : we have dealt with the Naive Bayes algorithm, we have covered most concepts of itin machine learning.
 """
