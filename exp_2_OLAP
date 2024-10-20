@@ -64,7 +64,7 @@ select * from stores
 
 
 
--- basic OLAP operation
+-- basic OLAP operation (for diagram refer : https://www.geeksforgeeks.org/olap-operations-in-dbms/
 
 -- Drill down: In drill-down operation, the less detailed data is converted into highly detailed data. It can be done by:
 -- Moving down in the concept hierarchy
