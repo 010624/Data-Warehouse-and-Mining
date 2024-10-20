@@ -41,3 +41,33 @@ print("Hub Scores:", hubs)
 # Update each node's authority score to be the sum of the hub scores of the nodes linking to it.
 # Update each node's hub score to be the sum of the authority scores of the nodes it links to.
 # Normalize the scores to prevent them from growing indefinitely.
+
+"""
+Theory :-
+Hyperlink Induced Topic Search (HITS) Algorithm is a Link Analysis Algorithm that rates
+webpages, developed by Jon Kleinberg. This algorithm is used to the web link-structures
+to discover and rank the webpages relevant for a particular search.
+HITS uses hubs and authorities to define a recursive relationship between webpages.
+Before understanding the HITS Algorithm, we first need to know about Hubs and
+Authorities.
+● Given a query to a Search Engine, the set of highly relevant web pages are called
+Roots. They are potential Authorities.
+● Pages that are not very relevant but point to pages in the Root are called Hubs.
+Thus, an Authority is a page that many hubs link to whereas a Hub is a page that
+links to many authorities.
+
+Applications
+Search Engines: Identifying authoritative and informative pages based on link structure.
+Recommendation Systems: Finding key influencers (hubs) and reliable sources (authorities) in social networks or academic citation networks.
+Advantages
+Identifies both informative content (authorities) and good linkers (hubs).
+Useful in focused search domains where certain pages link to many relevant sources.
+Limitations
+Sensitive to the link structure; spammy or irrelevant links can influence the ranking.
+Computationally intensive, especially for large networks.
+Does not consider the content of pages, only link structures.
+Conclusion
+The HITS algorithm is an effective method for analyzing link structures and identifying important web pages in terms of both content (authorities) and link aggregation (hubs). While it has been largely replaced by PageRank in general search engines, it remains valuable in focused topic searches and network analysis.
+
+
+"""
