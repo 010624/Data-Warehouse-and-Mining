@@ -41,6 +41,7 @@ print("Hub Scores:", hubs)
 # Update each node's authority score to be the sum of the hub scores of the nodes linking to it.
 # Update each node's hub score to be the sum of the authority scores of the nodes it links to.
 # Normalize the scores to prevent them from growing indefinitely.
+#https://tinyurl.com/4nph7a2y
 
 """
 Theory :-
