@@ -1,67 +1,54 @@
-create database SalesDatawarehouse;
-
-use SalesDatawarehouse databases;
-
-CREATE TABLE sales(
-sales_id INT PRIMARY KEY,
-product_id INT,
-time_id INT,
-store_INT,
-amount_sold DECIMAL(10, 2)
+-- Step 1: Create the Sales table
+CREATE TABLE Sales (
+    SalesID INT PRIMARY KEY,
+    Product VARCHAR(50),
+    Region VARCHAR(50),
+    Salesperson VARCHAR(50),
+    Year INT,
+    SalesAmount DECIMAL(10, 2)
 );
 
-CREATE TABLE product (
-product_id INT PRIMARY KEY,
-product_name VARCHAR(225),
-category VARCHAR(225) 
-);
+-- Step 2: Insert sample data into the Sales table
+INSERT INTO Sales (SalesID, Product, Region, Salesperson, Year, SalesAmount) VALUES
+(1, 'Laptop', 'North', 'John', 2023, 1000),
+(2, 'Laptop', 'South', 'Doe', 2023, 1200),
+(3, 'Phone', 'North', 'Alice', 2023, 700),
+(4, 'Tablet', 'West', 'Bob', 2023, 600),
+(5, 'Laptop', 'North', 'John', 2024, 1100),
+(6, 'Phone', 'East', 'Charlie', 2024, 900),
+(7, 'Tablet', 'West', 'Doe', 2024, 650),
+(8, 'Laptop', 'South', 'Alice', 2024, 1300),
+(9, 'Phone', 'East', 'Charlie', 2023, 800),
+(10, 'Tablet', 'North', 'Bob', 2024, 950);
 
-CREATE TABLE time ( 
-time_id INT PRIMARY KEY,
-day INT,
-month INT,
-year INT
-);
+-- Step 3: Apply OLAP Operations
 
-CREATE TABLE stores (
-store_id INT PRIMARY KEY,
-store_name VARCHAR(225),
-region VARCHAR(225)
-);
+-- a. ROLLUP: Aggregating by Product, Region, and Year
+SELECT Product, Region, Year, SUM(SalesAmount) AS TotalSales
+FROM Sales
+GROUP BY ROLLUP (Product, Region, Year);
 
-show tables;
+-- b. CUBE: Aggregating by all combinations of Product, Region, and Year
+SELECT Product, Region, Year, SUM(SalesAmount) AS TotalSales
+FROM Sales
+GROUP BY CUBE (Product, Region, Year);
 
-INSERT INTO products (product_id, product_name, category) VALUES
-(1, 'Laptop' , 'Electronics'),
-(2, 'Tablet' , 'Electronics'),
-(3, 'Chair' , 'Furniture');
+-- c. DRILL-DOWN: Drill down to specific details for Year 2023
+SELECT Product, Region, Year, Salesperson, SUM(SalesAmount) AS TotalSales
+FROM Sales
+WHERE Year = 2023
+GROUP BY Product, Region, Salesperson, Year;
 
-INSERT INTO stores table(store_id, store_name, region) VALUES
-(1, 'Store A' , 'North'),
-(2, 'Store B' , 'South'),
-(3, 'Store C' , 'EAST');
+-- d. SLICE: Filtering for 'Laptop' sales in 'North' region in 2023
+SELECT Product, Region, Year, Salesperson, SalesAmount
+FROM Sales
+WHERE Product = 'Laptop' AND Region = 'North' AND Year = 2023;
 
-INSERT INTO time(time_id, day, month, year) VALUES
-(1, 1, 1, 2023),
-(2, 2, 1, 2023),
-(3, 3, 1, 2023);
-
-INSERT INTO sales (sales_id, product_id, time_id, store_id, amount_sold) VALUES 
-(1, 1, 1, 1, 100.00),
-(2, 2 ,2, 2, 100.00),
-(3, 3, 3, 3, 100.00);
-
-SELECT time year, time.month, SUM(sales . amount_sold) AS total_sales
-FROM sales
-JOIN time ON sales.time_id = time.time_id
-GROUP BY time.year, time.month;
-
-select * from product;
-
-select * from time;
-
-select * from stores
-
+-- e. DICE: Filtering for 'Laptop' and 'Phone' sales in 2024 across all regions
+SELECT Product, Region, Year, SUM(SalesAmount) AS TotalSales
+FROM Sales
+WHERE Product IN ('Laptop', 'Phone') AND Year = 2024
+GROUP BY Product, Region, Year;
 
 
 -- basic OLAP operation (for diagram refer : https://www.geeksforgeeks.org/olap-operations-in-dbms/
